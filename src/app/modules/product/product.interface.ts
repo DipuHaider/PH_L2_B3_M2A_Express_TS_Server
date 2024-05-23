@@ -12,7 +12,7 @@ export type Inventory = {
 
 // Define the Product interface
 export type Product = {
-  _id: string;
+  id: string;
   name: string;
   description: string;
   price: number;

@@ -64,6 +64,12 @@ const updateProduct = async (req: Request, res: Response) => {
 
         // Call service function to update the product
         const result = await ProductServices.updateProductInDB(productId, updatedProductData);
+        if (!result) {
+            return res.status(404).json({
+                success: false,
+                message: `Product with ID ${productId} not found.`,
+            });
+        }
 
         // Send response
         res.status(200).json({

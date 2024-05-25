@@ -1,3 +1,4 @@
+import mongoose from "mongoose";
 import { ProductModel } from "../product.model";
 import { Product } from "./product.interface";
 
@@ -16,9 +17,17 @@ const getSingleProductFromDB = async (id: string) => {
     return result;
 }
 
-const updateProductInDB = async (id: string, updatedProductData: Partial<Product>) => {
-    const result = await ProductModel.findOneAndUpdate({ id }, updatedProductData, { new: true });
-    return result;
+const updateProductInDB = async (productId: string, updatedProductData: any) => {
+    try {
+        const filter = { id: productId };
+        const update = updatedProductData; // Use $set for partial updates
+
+        const result = await ProductModel.findOneAndUpdate(filter, update, { new: true, runValidators: true });
+        return result;
+    } catch (err) {
+        console.error('Error in updateProductInDB:', err);
+        throw err;
+    }
 }
 
 const deleteProductFromDB = async (id: string) => {

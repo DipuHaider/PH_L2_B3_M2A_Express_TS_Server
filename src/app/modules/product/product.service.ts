@@ -14,7 +14,8 @@ const getAllProductsFromDB = async (searchTerm: string) => {
             const products = await ProductModel.find({
                 $or: [
                     { name: { $regex: regex } },
-                    { description: { $regex: regex } }
+                    { description: { $regex: regex } },
+                    { tags: { $in: [regex] } }
                 ]
             });
             return products;

@@ -6,29 +6,21 @@ const createOrderIntoDB = async (order: Order) => {
     return result;
 }
 
-const getAllOrdersFromDB = async () => {
-    const result = await OrderModel.find();
-    return result;
-}
-
-const searchOrderInDB = async (searchTerm: string) => {
+const getAllOrdersFromDB = async (email: string) => {
     try {
-    
-        const regex = new RegExp(searchTerm, 'i');
-
-        const orders = await OrderModel.find({
-            $or: [{ name: regex }, { description: regex }]
-        });
-
-        return orders;
-    } catch (err) {
-        throw new Error('An error occurred while searching for orders.');
+        if (email) {
+            const result = await OrderModel.find({ email });
+            return result;
+        } else {
+            const result = await OrderModel.find();
+            return result;
+        }
+    } catch (error) {
+        throw error;
     }
-};
-
+}
 
 export const OrderServices = {
     createOrderIntoDB,
     getAllOrdersFromDB,
-    searchOrderInDB,
 }

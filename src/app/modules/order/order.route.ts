@@ -7,7 +7,5 @@ const router = express.Router();
 router.post('/create-order', OrderControllers.createOrder);
 // Get all orders
 router.get('/', OrderControllers.getAllOrders);
-// Search for orders by term
-router.get('/', OrderControllers.searchOrder);
 
 export const OrderRoutes = router;

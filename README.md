@@ -150,12 +150,10 @@ Sample Date
 3. Retrieve order by user email
    http://localhost:5000/api/orders?email=level2@programming-hero.com
 
-# The application uses Joi/Zod for validating incoming data to ensure data integrity before performing any database operations.
+##  Modular Concept
 
-# Modular Concept
+###  The project is structured using a modular approach, making it easy to maintain and scale by separating different functionalities into distinct modules.
 
-# The project is structured using a modular approach, making it easy to maintain and scale by separating different functionalities into distinct modules.
+##  Conclusion
 
-# Conclusion
-
-# This Express application provides a comprehensive solution for managing products and orders, with robust validation and error handling, all while leveraging the power of TypeScript and MongoDB.
+### This Express application provides a comprehensive solution for managing products and orders, with robust validation and error handling, all while leveraging the power of TypeScript and MongoDB.

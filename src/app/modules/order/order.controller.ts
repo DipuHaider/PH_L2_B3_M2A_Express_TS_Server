@@ -1,22 +1,59 @@
 import { Request, Response } from "express";
 import { OrderServices } from "./order.service";
+import { ProductServices } from "../product/product.service";
 
 const createOrder = async (req: Request, res: Response) => {
 
-    try{
-        const {order: orderData } = req.body;
+    try {
+        const { order: orderData } = req.body;
 
-        //will call service func to send this data
+        // Check if the product exists
+        const product: any = await ProductServices.getProductFindByIdFromDB(orderData.productId);
+        // console.log(orderData.productId);
+        
+        
+
+        if (!orderData.productId) {
+            return res.status(404).json({
+                success: false,
+                message: 'Product not found.',
+            });
+        }
+        
+        // console.log(orderData.quantity)
+        let productQuantity = product.inventory.quantity;
+        let productStock = product.inventory.inStock;
+
+        // Check if there is sufficient stock
+        if (productQuantity < orderData.quantity) {
+            return res.status(400).json({
+                success: false,
+                message: "Insufficient quantity available in inventory",
+            });
+        }
+
+        // Update inventory quantity and inStock status
+        productQuantity -= orderData.quantity;
+        productStock = productQuantity > 0;
+
+        // Save the updated product
+        await product.save();
+
+        // Create the order
         const result = await OrderServices.createOrderIntoDB(orderData);
 
-        //send response
-        res.status(200).json({
+        // Return success response
+        res.status(201).json({
             success: true,
-            message: 'Order is created Successfully.',
+            message: 'Order created successfully.',
             data: result,
         });
-    } catch (err){
-        console.log(err);
+    } catch (error) {
+        console.log(error);
+        res.status(500).json({
+            success: false,
+            message: 'Internal server error',
+        });
     }
 };
 

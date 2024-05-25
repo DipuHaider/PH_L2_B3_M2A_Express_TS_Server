@@ -7,10 +7,25 @@ const createProductIntoDB = async (product: Product) => {
     return result;
 }
 
-const getAllProductsFromDB = async () => {
-    const result = await ProductModel.find();
-    return result;
-}
+const getAllProductsFromDB = async (searchTerm: string) => {
+    try {
+        if (searchTerm) {
+            const regex = new RegExp(searchTerm, 'i');
+            const products = await ProductModel.find({
+                $or: [
+                    { name: { $regex: regex } },
+                    { description: { $regex: regex } }
+                ]
+            });
+            return products;
+        } else {
+            const result = await ProductModel.find();
+            return result;
+        }
+    } catch (error) {
+        throw error;
+    }
+};
 
 const getSingleProductFromDB = async (id: string) => {
     const result = await ProductModel.findOne({id});
@@ -35,21 +50,6 @@ const deleteProductFromDB = async (id: string) => {
     return result;
 }
 
-const searchProductInDB = async (searchTerm: string) => {
-    try {
-    
-        const regex = new RegExp(searchTerm, 'i');
-
-        const products = await ProductModel.find({
-            $or: [{ name: regex }, { description: regex }]
-        });
-
-        return products;
-    } catch (err) {
-        throw new Error('An error occurred while searching for products.');
-    }
-};
-
 
 export const ProductServices = {
     createProductIntoDB,
@@ -57,5 +57,4 @@ export const ProductServices = {
     getSingleProductFromDB,
     updateProductInDB,
     deleteProductFromDB,
-    searchProductInDB,
 }

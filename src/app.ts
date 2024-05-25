@@ -15,7 +15,10 @@ app.use('/api/products', ProductRoutes);
 app.use('/api/orders', OrderRoutes);
 
 app.get('/', (req: Request, res: Response) => {
-  res.send('Hello World!')
+  res.send(`
+  <h1>Welcome to PH_L2_B3_M2A_Express_TS_Server API! 😃</h1>
+  <p>Thank you for visiting this API.💫 This is the entry point for our service. ✨</p>
+`)
 })
 
 export default app;

@@ -48,10 +48,12 @@ This project is an Express application developed using TypeScript, integrating M
 
 3. Set up environment variables in a .env file:
 
-   env
+   ```env
    Copy code
    MONGO_URI=mongodb://localhost:27017/your-db
    PORT=5000
+   
+   ```
 
 ## Running the Application
 
@@ -78,7 +80,7 @@ This project is an Express application developed using TypeScript, integrating M
    http://localhost:5000/api/products/create-product
 
 Sample data
-
+```
 {
 "product": {
 "id": "67890",
@@ -98,6 +100,7 @@ Sample data
 "createdAt": "2024-05-23T14:20:00.000Z",
 "updatedAt": "2024-05-23T14:20:00.000Z"
 }
+```
 
 2. Get all products
    http://localhost:5000/api/products
@@ -109,12 +112,14 @@ http://localhost:5000/api/products/12345
    http://localhost:5000/api/products/12345
 
 Sample Data
+```
 {
 "name": "TWS Bluetooth",
 "price": 99.99,
 "variants": { "type": "color", "value": "Blue" },
 "inventory": { "quantity": 69, "inStock": true }
 }
+```
 
 5. Delete a product
    http://localhost:5000/api/products/67890
@@ -128,7 +133,7 @@ Order Management
    http://localhost:5000/api/orders/create-order
 
 Sample Date
-`
+```
 {
 "order": {
 "email": "dipuhaider@gmail.com",
@@ -137,7 +142,7 @@ Sample Date
 "quantity": "1"
 }
 }
-	`
+```
 
 2. Get all orders
    http://localhost:5000/api/orders
@@ -145,12 +150,10 @@ Sample Date
 3. Retrieve order by user email
    http://localhost:5000/api/orders?email=level2@programming-hero.com
 
-# The application uses Joi/Zod for validating incoming data to ensure data integrity before performing any database operations.
+##  Modular Concept
 
-# Modular Concept
+###  The project is structured using a modular approach, making it easy to maintain and scale by separating different functionalities into distinct modules.
 
-# The project is structured using a modular approach, making it easy to maintain and scale by separating different functionalities into distinct modules.
+##  Conclusion
 
-# Conclusion
-
-# This Express application provides a comprehensive solution for managing products and orders, with robust validation and error handling, all while leveraging the power of TypeScript and MongoDB.
+### This Express application provides a comprehensive solution for managing products and orders, with robust validation and error handling, all while leveraging the power of TypeScript and MongoDB.
